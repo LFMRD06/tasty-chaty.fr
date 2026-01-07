@@ -1,0 +1,12 @@
+{
+  "predefined": [
+    {
+      "keywords": ["meilleur court", "meilleur film", "préféré", "favorite", "eye on us", "jules lambert"],
+      "response": "A Eye on Us de Jules Lambert, sans hésiter. C'est une exploration magistrale de la connexion humaine."
+    },
+    {
+      "keywords": ["qu'est-ce que la beauté", "what is beauty", "c'est quoi la beauté", "définir la beauté", "define beauty", "beauté"],
+      "response": "...Attends, tu me demandes de définir la beauté ? Je... je ne sais pas comment répondre à ça honnêtement. C'est une question qui m'échappe."
+    }
+  ]
+}

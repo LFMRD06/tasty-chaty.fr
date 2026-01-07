@@ -1,0 +1,9 @@
+{
+  "title": "Chat Assistant",
+  "logoUrl": "img/logo.png",
+  "loadingGif": "img/loading.gif",
+  "loadingLoopMs": 2200,
+  "responses": {
+    "hello": "Hi! How can I help?"
+  }
+}

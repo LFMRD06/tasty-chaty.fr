@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sync Video Client</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            overflow: hidden;
+        }
+        
+        #player {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <video id="player" loop muted playsinline></video>
+
+    <script>
+        const player = document.getElementById('player');
+        
+        console.log('🎬 Client démarrage...');
+        
+        let ws = null;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 5;
+        
+        function connectWebSocket() {
+            try {
+                ws = new WebSocket('ws://192.168.36.103:8080');
+                
+                ws.onopen = () => {
+                    console.log('✓ Connecté au serveur');
+                    reconnectAttempts = 0;
+                    
+                    // Envoyer le message d'identification CLIENT
+                    const message = JSON.stringify({ type: 'CLIENT' });
+                    console.log('📤 Envoi:', message);
+                    ws.send(message);
+                };
+                
+                ws.onclose = () => {
+                    console.log('✗ Déconnecté du serveur');
+                    attemptReconnect();
+                };
+                
+                ws.onerror = (error) => {
+                    console.error('✗ Erreur WebSocket:', error);
+                };
+                
+                ws.onmessage = async (e) => {
+                    try {
+                        console.log('📨 Message reçu:', e.data);
+                        const data = JSON.parse(e.data);
+                        
+                        if (data.type === 'SYNC_PLAY') {
+                            const video = data.video;
+                            console.log('▶️ PLAY reçu pour:', video);
+                            
+                            player.src = 'http://192.168.36.103:8000/videos/' + video;
+                            console.log('🎥 Source vidéo définie:', player.src);
+                            
+                            player.load();
+                            
+                            try {
+                                console.log('⏳ Chargement vidéo...');
+                                
+                                document.documentElement.style.overflow = 'hidden';
+                                document.body.style.overflow = 'hidden';
+                                
+                                console.log('📺 Passage plein écran...');
+                                await document.documentElement.requestFullscreen().catch(err => {
+                                    console.warn('Fullscreen non disponible:', err.message);
+                                });
+                                
+                                console.log('▶️ Lancement lecture...');
+                                await player.play();
+                                
+                                console.log('✓ Lecture en cours');
+                            } catch (err) {
+                                console.error('❌ Erreur:', err.message);
+                            }
+                        }
+                        
+                        else if (data.type === 'SYNC_STOP') {
+                            console.log('⏹️ STOP reçu');
+                            
+                            player.pause();
+                            player.currentTime = 0;
+                            
+                            if (document.fullscreenElement) {
+                                await document.exitFullscreen().catch(err => {
+                                    console.warn('Erreur sortie fullscreen:', err.message);
+                                });
+                            }
+                            
+                            document.documentElement.style.overflow = '';
+                            document.body.style.overflow = '';
+                            
+                            console.log('✓ Arrêt et retour écran noir');
+                        }
+                    } catch (err) {
+                        console.error('❌ Erreur traitement message:', err);
+                    }
+                };
+                
+            } catch (err) {
+                console.error('❌ Erreur création WebSocket:', err);
+                attemptReconnect();
+            }
+        }
+        
+        function attemptReconnect() {
+            if (reconnectAttempts < maxReconnectAttempts) {
+                reconnectAttempts++;
+                const delay = 2000 * reconnectAttempts;
+                console.log(`⏳ Reconnexion tentative ${reconnectAttempts}/${maxReconnectAttempts} dans ${delay}ms...`);
+                setTimeout(connectWebSocket, delay);
+            } else {
+                console.error('❌ Impossible de se connecter au serveur');
+            }
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                console.log('⏹️ ESC pressé');
+                player.pause();
+                player.currentTime = 0;
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+        });
+        
+        // Lancer la connexion au démarrage
+        connectWebSocket();
+    </script>
+</body>
+</html>

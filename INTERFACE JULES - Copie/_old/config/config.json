@@ -1,0 +1,19 @@
+{
+  "logoUrl": "chat_logo_2.png",
+  "title": "Tasty Chaty",
+  "delay": 20000,
+  "loadingGif": "reflexion.gif",
+  "responses": {
+    "bonjour": "Bonjour! Comment ça va?",
+    "ça va": "Très bien, merci de demander!",
+    "au revoir": "À bientôt!",
+    "c'est quoi la beauté ?": "Les baddies",
+    "La beauté existe-t-elle sans un regard pour l'accueillir ?": "Les baddies",
+"la beauté existe t elle sans un regard pour l'acceuillir?" : "baddies",
+"la beauté existe t elle sans un regard pour l'acceuillir?" : "baddies",
+"La beauté existe t elle sans un regard pour l'acceuillir?" : "baddies",
+"La beauté existe t elle sans un regard pour l'accueillir?" : "baddies",
+
+    "f, g, h et k sont les fonctions définies par : f(x) = 1x2 +2-1 g(z) = ¼22- 20-1 B(2) =-|22-22-1 k(z) = ¼02+2-1 Les représentations graphiques de ces quatre fonctions sont données en annexe ex 3. ﻿﻿﻿Pour chacune de ces fonctions, indiquer laquelle des paraboles la représente, en justifiant. ﻿﻿﻿Résoudre graphiquement l'inéquation f (x) > g(x) en justifiant la réponse.": "On considère quatre fonctions : f(x) = x² + 2x - 1, g(x) = (1/4)x² - 2x - 1, h(x) = -|x² - 2x - 1| et k(x) = (1/4)x² + 2x - 1. Pour reconnaître leurs courbes, on regarde le coefficient de x² et le sommet de la parabole : f est une parabole « normale » (coefficient 1) avec un sommet en (-1 ; -2), g est une parabole plus aplatie (coefficient 1/4), ouverte vers le haut, avec un sommet en (4 ; -5), k a la même forme aplatie que g mais avec un sommet en (-4 ; -5), et h est une courbe en forme de « W renversé », toujours en dessous ou sur l’axe des abscisses car on prend l’opposé d’une valeur absolue. Sur le dessin, la parabole resserrée de sommet (-1 ; -2) représente f, les paraboles aplaties de sommets (4 ; -5) et (-4 ; -5) représentent g et k (celle de droite est g, celle de gauche est k), et la courbe en « double branche vers le bas » représente h. Pour résoudre f(x) > g(x) graphiquement, on cherche où la courbe de f est au‑dessus de celle de g : les deux courbes se coupent en x = -1 et x = 2, entre ces deux valeurs la courbe de f est au‑dessus de celle de g et en dehors elle est en dessous, donc la solution de l’inéquation est l’intervalle ]-1 ; 2[."
+  }
+}
